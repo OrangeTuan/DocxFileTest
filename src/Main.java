@@ -11,7 +11,7 @@ public class Main {
         params.put("name1","小陈");
         params.put("name2", "小红");
         params.put("sport1", "打篮球");
-        params.put("sport2", "打羽毛球");
+        params.put("sport2", "打乒乓球");
         doc.export(path, outPath, params);
     }
 
