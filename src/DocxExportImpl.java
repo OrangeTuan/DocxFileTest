@@ -1,6 +1,10 @@
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTR;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTRPr;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTUnderline;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STUnderline;
 
 import java.io.*;
 import java.util.Iterator;
@@ -51,7 +55,12 @@ public class DocxExportImpl implements  DocxExportI {
                         runText = matcher.replaceAll(String.valueOf(params.get(matcher.group(1))));
                     }
                     paragraph.removeRun(i);
-                    paragraph.insertNewRun(i).setText(runText);
+                    XWPFRun newRun = paragraph.insertNewRun(i);
+                    newRun.setText(runText);
+                    CTR ctr = newRun.getCTR();
+                    CTRPr rpr = ctr.addNewRPr();
+                    CTUnderline u = rpr.addNewU();
+                    u.setVal(STUnderline.Enum.forInt(Math.abs(1)));
                 }
             }
         }
